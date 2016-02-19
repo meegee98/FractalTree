@@ -1,23 +1,32 @@
-private double fractionLength = .9; 
+private double fractionLength = .8; 
 private int smallestBranch = 10; 
-private double branchAngle = .2;  
+private double branchAngle = .5;  
 public void setup() 
 {   
 	size(640,480);    
-	noLoop(); 
+	//noLoop(); 
+	//frameRate(5);
 } 
 public void draw() 
 {   
 	background(0);   
-	stroke(0,255,0);   
+	stroke(50,111,32);   
 	line(320,480,320,380);   
-	drawBranches(320,380,100,3*Math.PI/2);  
+	drawBranches(320,380,100,3*Math.PI/2); 
+
 } 
+public void keyPressed()
+{
+	if(key==CODED && keyCode==UP)
+	branchAngle+=.1;
+	if(key==CODED && keyCode==DOWN)
+	branchAngle-=.1;
+}
 
 public void drawBranches(int x,int y, double branchLength, double angle) 
 {   
-	double angle1=angle+branchLength;
-	double angle2=angle-branchLength;
+	double angle1=angle+branchAngle;
+	double angle2=angle-branchAngle;
 	branchLength*=fractionLength;
 	int endX1, endY1, endX2, endY2;
 	endX1=(int)(branchLength*Math.cos(angle1) + x);
@@ -29,9 +38,14 @@ public void drawBranches(int x,int y, double branchLength, double angle)
 
 	if(branchLength>smallestBranch)
 	{
-		//drawBranches(endX1, endY1, branchLength, angle);
-		//drawBranches(endX2, endY2, branchLength, angle);
-		drawBranches(endX1, endY1, branchLength*fractionLength, angle+1);
-		drawBranches(endX2, endY2, branchLength*fractionLength, angle-1);
+		drawBranches(endX1, endY1, branchLength, angle1);
+		drawBranches(endX2, endY2, branchLength, angle2);
 	} 
+	if(branchLength<smallestBranch)
+	{
+		//stroke(255, 0, 0);
+		fill(249, 167, 235);
+		ellipse(endX1, endY1, 5, 5);
+		ellipse(endX2, endY2, 5, 5);
+	}
 } 
