@@ -3,24 +3,25 @@ private int smallestBranch = 10;
 private double branchAngle = .5;  
 private int grow=0;
 private int growY=1;
-//Rain [] drops;
+private int rainColor=color(0, 0, 255);
+Rain [] drops;
 public void setup() 
 {   
   size(640,480);  
-  frameRate(600);
-  /*drops=new Rain[200];
+  frameRate(500);
+  drops=new Rain[200];
   for(int i=0; i<drops.length; i++)
-      drops[i]= new Rain();*/
+      drops[i]= new Rain();
 } 
 public void draw() 
 {   
   background(0); 
-  /*for(int i=0; i<drops.length; i++)
+  for(int i=0; i<drops.length; i++)
     {
       drops[i].move();
       drops[i].show();
       drops[i].wrap();
-    }*/
+    }
   stroke(50,111,32);   
   line(320+grow,500-growY,320+grow,380-grow);   
   drawBranches(320+grow,380-grow,100+grow,3*Math.PI/2); 
@@ -36,6 +37,7 @@ public void keyPressed()
   growY--;}
   if(key==CODED && keyCode==DOWN)
   grow--;
+  
 }
 
 public void drawBranches(int x,int y, double branchLength, double angle) 
@@ -58,26 +60,27 @@ public void drawBranches(int x,int y, double branchLength, double angle)
   } 
   if(branchLength<smallestBranch)
   {
-    //stroke(255, 0, 0);
-    fill(249, 167, 235);
+    //fill(249, 167, 235);
+    //fill(239, 110, 162);
+    fill(228, 137, 182);
     ellipse(endX1, endY1, 5, 5);
     ellipse(endX2, endY2, 5, 5);
   }
 } 
-/*class Rain
+class Rain
 {
-  int rainX, rainY;
-  boolean moving;
+  int rainX, rainY, rainColor;
+  boolean moving, raining;
   Rain()
   {
     rainX=(int)(Math.random()*640);
     rainY=(int)(Math.random()*840);
+    rainColor=color(0, 0, 255);
     moving=true;
-    
   }
   void show()
   {
-    stroke(0, 0, 355);
+    stroke(rainColor);
     line(rainX, rainY, rainX-25, rainY+35);
   }
   void move()
@@ -96,4 +99,4 @@ public void drawBranches(int x,int y, double branchLength, double angle)
       rainX=(int)(Math.random()*1000);
     }
   }
-}*/
+}
